@@ -3,7 +3,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Satellites</title>
+    <title>Characters</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="http://localhost:35729/livereload.js"></script>
     <style>
@@ -26,36 +26,36 @@
 
     <div class="container-sm">
 
-        <h2 class="navbar-brand">Edit Satellite</h2>
+        <h2 class="navbar-brand">Edit Character</h2>
 
-        <div th:if="${satellite.id == null}">
-            <div class="alert alert-danger" role="alert" th:text="'Satellite with Satellite Number[' + ${id} + '] not found'">
-                Satellite Not Found
+        <div th:if="${character.id == null}">
+            <div class="alert alert-danger" role="alert" th:text="'Character with id[' + ${id} + '] not found'">
+                Character Not Found
             </div>
             <a href="list" class="btn btn-outline-secondary">Go Back</a>
         </div>
 
-        <form th:action="@{save}" method="post" th:object="${satellite}" th:if="${satellite.id != null}">
+        <form th:action="@{save}" method="post" th:object="${character}" th:if="${character.id != null}">
 
             <input type="hidden" id="id" name="id" th:value="*{id}" />
 
             <div class="mb-3">
-                <label for="name" class="form-label">Satellite Name</label>
+                <label for="name" class="form-label">Character Name</label>
                 <input type="text" class="form-control" id="name" name="name" th:value="*{name}"
                     placeholder="John" />
             </div>
             <div class="mb-3">
-                <label for="rocket" class="form-label">Satellite Rocket</label>
+                <label for="rocket" class="form-label">Character Rocket</label>
                 <input type="text" class="form-control" id="rocket" name="rocket" th:value="*{rocket}"
                     placeholder="Mike" />
             </div>
             <div class="mb-3">
-                <label for="country" class="form-label">Satellite Country</label>
+                <label for="country" class="form-label">Character Country</label>
                 <input type="text" class="form-control" id="country" name="country" th:value="*{country}"
                     placeholder="Mars" />
             </div>
             <div class="mb-3">
-                <label for="year" class="form-label">Satellite Year</label>
+                <label for="year" class="form-label">Character Year</label>
                 <input type="number" step="1" class="form-control" id="year" name="year" th:value="*{year}"
                     placeholder="2100" />
             </div>

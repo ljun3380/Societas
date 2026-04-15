@@ -3,7 +3,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Satellites</title>
+    <title>Characters</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="http://localhost:35729/livereload.js"></script>
     <style>
@@ -26,30 +26,30 @@
 
     <div class="container-sm">
 
-        <h2 class="navbar-brand">Satellite Details</h2>
+        <h2 class="navbar-brand">Character Details</h2>
 
-        <div th:if="${satellite.id == null}">
-            <div class="alert alert-danger" role="alert" th:text="'Satellite with id[' + ${id} + '] not found'">
-                Satellite not found
+        <div th:if="${character.id == null}">
+            <div class="alert alert-danger" role="alert" th:text="'Character with id[' + ${id} + '] not found'">
+                Character not found
             </div>
             <a href="list" class="btn btn-outline-secondary">Go Back</a>
         </div>
 
-        <div th:if="${satellite.id != null}" th:object="${satellite}">
+        <div th:if="${character.id != null}" th:object="${character}">
             <div class="mb-3">
-                <label for="name" class="form-label">Satellite Name</label>
+                <label for="name" class="form-label">Character Name</label>
                 <input type="text" class="form-control" id="name" disabled="true" th:value="*{name}" />
             </div>
             <div class="mb-3">
-                <label for="rocket" class="form-label">Satellite Rocket</label>
+                <label for="rocket" class="form-label">Character Rocket</label>
                 <input type="text" class="form-control" id="rocket" disabled="true" th:value="*{rocket}" />
             </div>
             <div class="mb-3">
-                <label for="country" class="form-label">Satellite Country</label>
+                <label for="country" class="form-label">Character Country</label>
                 <input type="text" class="form-control" id="country" disabled="true" th:value="*{country}" />
             </div>
             <div class="mb-3">
-                <label for="year" class="form-label">Satellite Year</label>
+                <label for="year" class="form-label">Character Year</label>
                 <input type="number" step="0.01" class="form-control" id="year" disabled="true" th:value="*{year}" />
             </div>
             <a href="list" class="btn btn-outline-secondary">Go Back</a>

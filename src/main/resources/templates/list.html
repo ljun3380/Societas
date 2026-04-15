@@ -3,7 +3,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Satellites</title>
+    <title>Characters</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="http://localhost:35729/livereload.js"></script>
     <style>
@@ -49,16 +49,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="satellite,iteration : ${satellites}">
+                <tr th:each="character,iteration : ${characters}">
                     <td th:text="${(currentPageNumber * pageSize) + iteration.count}">1</td>
-                    <td th:text="${satellite.name}">Example Name</td>
-                    <td th:text="${satellite.rocket}">Example Rocket</td>
-                    <td th:text="${satellite.country}">Example Country</td>
-                    <td th:text="${satellite.year}">Example Year</td>
+                    <td th:text="${character.name}">Example Name</td>
+                    <td th:text="${character.rocket}">Example Rocket</td>
+                    <td th:text="${character.country}">Example Country</td>
+                    <td th:text="${character.year}">Example Year</td>
                     <td>
-                        <a class="btn btn-info" th:href="'view?id=' + ${satellite.id}">View</a>
-                        <a class="btn btn-warning" th:href="'edit?id=' + ${satellite.id}">Edit</a>
-                        <a class="btn btn-danger" th:href="'delete?id=' + ${satellite.id}">Delete</a>
+                        <a class="btn btn-info" th:href="'view?id=' + ${character.id}">View</a>
+                        <a class="btn btn-warning" th:href="'edit?id=' + ${character.id}">Edit</a>
+                        <a class="btn btn-danger" th:href="'delete?id=' + ${character.id}">Delete</a>
                     </td>
                 </tr>
             </tbody>

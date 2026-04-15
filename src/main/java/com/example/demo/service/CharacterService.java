@@ -8,32 +8,32 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Satellite;
-import com.example.demo.repository.SatelliteRepository;
+import com.example.demo.entity.Character;
+import com.example.demo.repository.CharacterRepository;
 
 @Service
-public class SatelliteService {
+public class CharacterService {
 
-    private final SatelliteRepository repository;
+    private final CharacterRepository repository;
 
     @Autowired
-    public SatelliteService(final SatelliteRepository repository) {
+    public CharacterService(final CharacterRepository repository) {
         this.repository = repository;
     }
 
-    public Page<Satellite> getSatellites(final int pageNumber, final int size) {
+    public Page<Character> getCharacters(final int pageNumber, final int size) {
         return repository.findAll(PageRequest.of(pageNumber, size));
     }
 
-    public Optional<Satellite> getSatellite(final UUID id) {
+    public Optional<Character> getCharacter(final UUID id) {
         return repository.findById(id);
     }
 
-    public Satellite saveSatellite(final Satellite satellite) {
-        return repository.save(satellite);
+    public Character saveCharacter(final Character character) {
+        return repository.save(character);
     }
 
-    public void deleteSatellite(final UUID id) {
+    public void deleteCharacter(final UUID id) {
         repository.deleteById(id);
     }
 }
