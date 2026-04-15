@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmln:th="http://www.thymeleaf.org">
+<head>
+	<title>404</title>
+	<link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+	<h1 id="h1">Welcome!</h1>
+	<br>
+	<img
+		src="/images/Sputnik 1.jpg"
+		alt="Sputnik"
+		height="300"
+		style="border: 2px dashed blueviolet"
+		class="img-responsive"
+	    id="firstImage"
+		title="Sputnik"
+		loading="eager"
+	>
+
+	<div id="photoChanger" class="container">
+		<div class="toggle" onclick="toggle()">
+			<div class="circle">
+
+			</div>
+		</div>
+		<span class="text">False</span>
+	</div>
+
+	<button onclick="toggle2026()">Chnage helder text</button>
+	<button onclick="toggle9001()">!?</button>
+
+	<script>
+		// the only thing that's the same between java and javascript... comments
+		// toggle image
+		let active1 = false;
+		function toggle() {
+			let toggle = document.querySelector(".toggle");
+			let text = document.querySelector(".text");
+
+			active1 = !active1;
+			const photo = document.getElementById("firstImage");
+			if (active1) {
+				toggle.classList.add("active");
+				text.innerHTML = "True";
+				photo.src = "/images/Sputnik 2.webp";
+			} else {
+				toggle.classList.remove("active");
+				text.innerHTML = "False";
+				photo.src = "/images/Sputnik 1.jpg";
+			}
+		}
+
+		// change text
+		let active12 = false;
+		function toggle2026() {
+			active12 = !active12;
+			const header = document.getElementById("h1");
+			if (active12) {
+				header.innerHTML = "Welcome?";
+			} else {
+				header.innerHTML = "Welcome!";
+			}
+		}
+
+		// change text
+		function toggle9001() {
+			const header = document.getElementById("h1");
+			if (active12) {
+				header.innerHTML += "?";
+			} else {
+				header.innerHTML += "!";
+			}
+		}
+
+		
+	</script>
+</body>
+</html>

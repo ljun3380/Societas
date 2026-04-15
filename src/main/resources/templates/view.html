@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Satellites</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="http://localhost:35729/livereload.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+
+        body {
+            font-family: 'Rubik', sans-serif;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</head>
+
+<body><nav th:replace="header :: header"></nav>
+    <br />
+    <br />
+
+    <div class="container-sm">
+
+        <h2 class="navbar-brand">Satellite Details</h2>
+
+        <div th:if="${satellite.id == null}">
+            <div class="alert alert-danger" role="alert" th:text="'Satellite with id[' + ${id} + '] not found'">
+                Satellite not found
+            </div>
+            <a href="list" class="btn btn-outline-secondary">Go Back</a>
+        </div>
+
+        <div th:if="${satellite.id != null}" th:object="${satellite}">
+            <div class="mb-3">
+                <label for="name" class="form-label">Satellite Name</label>
+                <input type="text" class="form-control" id="name" disabled="true" th:value="*{name}" />
+            </div>
+            <div class="mb-3">
+                <label for="rocket" class="form-label">Satellite Rocket</label>
+                <input type="text" class="form-control" id="rocket" disabled="true" th:value="*{rocket}" />
+            </div>
+            <div class="mb-3">
+                <label for="country" class="form-label">Satellite Country</label>
+                <input type="text" class="form-control" id="country" disabled="true" th:value="*{country}" />
+            </div>
+            <div class="mb-3">
+                <label for="year" class="form-label">Satellite Year</label>
+                <input type="number" step="0.01" class="form-control" id="year" disabled="true" th:value="*{year}" />
+            </div>
+            <a href="list" class="btn btn-outline-secondary">Go Back</a>
+        </div>
+    </div>
+</body>
+
+</html>
