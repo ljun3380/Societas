@@ -41,8 +41,8 @@
                 <input type="text" class="form-control" id="name" disabled="true" th:value="*{name}" />
             </div>
             <div class="mb-3">
-                <label for="email" class="form-label">Character Email</label>
-                <input type="email" class="form-control" id="email" disabled="true" th:value="*{email}" />
+                <label for="author" class="form-label">Character Author</label>
+                <input type="text" class="form-control" id="author" disabled="true" th:value="*{author}" />
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Character Description</label>
@@ -56,6 +56,10 @@
             <div class="mb-3">
                 <label for="votes" class="form-label">Character Votes</label>
                 <input type="number" class="form-control" id="votes" disabled="true" th:value="*{votes}" />
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Character Email</label>
+                <input type="email" class="form-control" id="email" disabled="true" th:value="*{email}" />
             </div>
             <a href="list" class="btn btn-outline-secondary">Go Back</a>
         </div>

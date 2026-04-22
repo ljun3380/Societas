@@ -45,9 +45,9 @@
                     placeholder="John" />
             </div>
             <div class="mb-3">
-                <label for="email" class="form-label">Character Email</label>
-                <input type="email" class="form-control" id="email" name="email" th:value="*{email}"
-                    placeholder="john@example.com" />
+                <label for="author" class="form-label">Character Author</label>
+                <input type="text" class="form-control" id="author" name="author" th:value="*{author}"
+                    placeholder="Author Name" />
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Character Description</label>
@@ -63,6 +63,11 @@
                 <label for="votes" class="form-label">Character Votes</label>
                 <input type="number" step="1" class="form-control" id="votes" name="votes" th:value="*{votes}"
                     placeholder="0" />
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Character Email</label>
+                <input type="email" class="form-control" id="email" name="email" th:value="*{email}"
+                    placeholder="john@example.com" />
             </div>
             <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
 

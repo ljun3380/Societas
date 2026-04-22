@@ -19,7 +19,6 @@ import com.example.demo.entity.Character;
 import com.example.demo.service.CharacterService;
 
 @Controller
-@RequestMapping("")
 public class CharacterController {
     static final int DEFAULT_PAGE_SIZE = 10;
 
@@ -31,7 +30,8 @@ public class CharacterController {
 
     @GetMapping(value={"/", ""})
     public String index() {
-        return "redirect:list";
+        //return "redirect:list";
+        return "redirect:home";
     }
 
     @GetMapping(value={"/list", "/list/"})
@@ -106,6 +106,7 @@ public class CharacterController {
                 toSave = existing.get();
                 // Update fields from form
                 toSave.setName(character.getName());
+                toSave.setAuthor(character.getAuthor());
                 toSave.setEmail(character.getEmail());
                 toSave.setDescription(character.getDescription());
                 toSave.setVotes(character.getVotes());

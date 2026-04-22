@@ -18,8 +18,8 @@ public class Character {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "author")
+    private String author;
 
     @Column(name = "description")
     private String description;
@@ -30,6 +30,9 @@ public class Character {
 
     @Column(name = "votes")
     private Integer votes;
+
+    @Column(name = "email")
+    private String email;
 
     // Getters and setters
 
@@ -47,6 +50,14 @@ public class Character {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getDescription() {
