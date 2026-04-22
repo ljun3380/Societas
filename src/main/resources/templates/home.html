@@ -1,108 +1,68 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Characters</title>
-
-    <link
-      href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script defer src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-    <script defer src="/webjars/popper.js/2.9.2/umd/popper.min.js"></script>
-    <script defer src="/webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeEpic Gaming | Official Site</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-    /* 1. Define a consistent spacing variable */
-    :root {
-        --gallery-spacing: 15px; 
-    }
+        /* Fixed: Ensure colors match the brand logo exactly */
+        :root {
+            --we-epic-red: #E30613;
+            --we-epic-blue: #0054A6;
+        }
+        body { background-color: #050505; color: #ffffff; }
+        .hero-glow {
+            background: radial-gradient(circle at center, rgba(227, 6, 19, 0.15) 0%, rgba(5, 5, 5, 1) 70%);
+        }
+    </style>
+</head>
+<body>
 
-    /* 2. Adjust the row to cancel out the outer padding of the columns */
-    .tight-row {
-        display: flex;
-        flex-wrap: wrap;
-        margin-right: calc(-1 * var(--gallery-spacing));
-        margin-left: calc(-1 * var(--gallery-spacing));
-    }
-
-    /* 3. Apply equal padding to all sides of every column */
-    .tight-row > [class*='col-'] {
-        padding: var(--gallery-spacing);
-    }
-
-    /* 4. Remove the manual margin-bottom from the cards */
-    .card-zoom-container {
-        margin-bottom: 0 !important; 
-        border-radius: 25px;
-        overflow: hidden;
-        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
-    }
-  /* 1. Add extra padding to the main wrapper */
-  .custom-container {
-    padding-left: 5%;  /* Large side gutters */
-    padding-right: 5%;
-    margin-top: 80px;   /* Extra breathing room at the top */
-  }
-
-  /* 1. Round the main card container */
-    .card-zoom-container {
-    border-radius: 25px; /* Increase this number for more roundness */
-    overflow: hidden;    /* This clips the image to the card's rounded corners */
-    border: none;        /* Optional: removes the thin grey border for a modern look */
-    
-    /* Keep your existing zoom transition */
-    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
-                box-shadow 0.4s ease;
-    }
-
-    /* 2. Ensure the image top corners match (if overflow:hidden isn't enough) */
-    .card-img-top {
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    }
-
-  .card-zoom-container:hover {
-    transform: scale(1.05);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important;
-    z-index: 10;
-  }
-
-  /* Optional: Extra space between the two columns */
-  .row {
-    margin-left: -20px;
-    margin-right: -20px;
-  }
-  .col-md-6 {
-    padding: 20px; 
-  }
-</style>
-  </head>
-  <body>
-    
-
-<div class="container-fluid custom-container">
-  <header class="mb-5 text-center">
-    <h1 class="display-3">The First Characters</h1>
-    <p class="lead text-muted">A gallery of characters.</p>
-    <hr class="my-4" style="width: 50px; border-top: 3px solid #007bff;">
-    <a href="/characterlab" class="btn btn-primary btn-lg">Go to Character Lab</a>
-  </header>
-
-  <div class="row tight-row">
-    <div th:each="image : ${imageList}" class="col-md-6">
-      <div class="card h-100 shadow-sm card-zoom-container">
-        <img th:src="@{'/images/' + ${image.name}}" class="card-img-top" th:alt="${image.description}" />
-        <div class="card-body p-4">
-           <h4 class="" th:text="${image.description}">Description...</h4>
+    <nav class="flex items-center justify-between px-6 py-4 bg-black/80 backdrop-blur-md sticky top-0 z-50 border-b border-white/10">
+        <div class="flex items-center">
+            <img th:src="@{/images/WeEpicLogo.png}" alt="WeEpic" class="h-10 md:h-14">
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-  </body>
+        
+        <div class="hidden md:flex space-x-10 text-sm font-bold tracking-widest">
+            <a href="#" class="hover:text-red-500 transition">GAMES</a>
+            <a href="#" class="hover:text-blue-500 transition">STUDIO</a>
+            <a href="#" class="hover:text-red-500 transition">CAREERS</a>
+        </div>
+
+        <button class="bg-gradient-to-r from-red-600 to-blue-600 px-6 py-2 rounded text-sm font-black italic">
+            PLAY NOW
+        </button>
+    </nav>
+
+    <section class="hero-glow h-[70vh] flex flex-col items-center justify-center text-center px-4">
+        <h1 class="text-7xl md:text-9xl font-black italic mb-4 tracking-tighter uppercase">
+            We<span class="text-red-600">Epic</span>
+        </h1>
+        <p class="text-slate-400 text-lg md:text-xl max-w-xl">
+            Pushing the limits of interactive entertainment through epic storytelling and competitive play.
+        </p>
+    </section>
+
+    <main class="py-16 px-6 max-w-7xl mx-auto">
+        <h2 class="text-2xl font-bold mb-8 italic uppercase tracking-tighter">Current Projects</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div th:if="${games == null}" class="col-span-full text-center py-10 border border-dashed border-white/20">
+                <p class="text-slate-500 italic">No games currently active. Check back soon!</p>
+            </div>
+
+            <div th:each="game : ${games}" class="group bg-zinc-900 border border-white/5 hover:border-blue-500/50 transition">
+                <div class="aspect-video bg-zinc-800 overflow-hidden">
+                    <img th:src="@{${game.imageUrl}}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="p-5">
+                    <h3 class="text-xl font-bold uppercase italic" th:text="${game.title}">Game Name</h3>
+                    <p class="text-sm text-slate-400 mt-2 line-clamp-2" th:text="${game.description}">Description...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
 </html>
