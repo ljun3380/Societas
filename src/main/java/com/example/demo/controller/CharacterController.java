@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.Base64;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ import com.example.demo.service.CharacterService;
 @Controller
 @RequestMapping("")
 public class CharacterController {
-    static final int DEFAULT_PAGE_SIZE = 2;
+    static final int DEFAULT_PAGE_SIZE = 10;
 
     private final CharacterService characterService;
 
@@ -52,16 +53,24 @@ public class CharacterController {
     }
 
     @GetMapping("/view")
-    public String view(final Model model, @RequestParam(name = "id") final String id) {
+    public String view(final Model model, @RequestParam(name = "id", required = false) final String id) {
+        if (id == null || id.trim().isEmpty()) {
+            return "redirect:list";
+        }
         try {
             UUID uuid = UUID.fromString(id);
             Optional<Character> record = characterService.getCharacter(uuid);
 
-            model.addAttribute("character", record.orElse(new Character()));
+            Character character = record.orElse(new Character());
+            if (character.getImage() != null) {
+                String base64Image = Base64.getEncoder().encodeToString(character.getImage());
+                model.addAttribute("base64Image", base64Image);
+            }
+            model.addAttribute("character", character);
             model.addAttribute("requestedId", id);
         } catch (IllegalArgumentException e) {
             // This handles cases where the ID in the URL isn't a valid UUID
-            model.addAttribute("characters", new Character());
+            model.addAttribute("character", new Character());
             model.addAttribute("error", "Invalid ID format");
         }
         return "view";
@@ -75,7 +84,10 @@ public class CharacterController {
     }
 
     @GetMapping(value={"/edit", "/edit/"})
-    public String edit(final Model model, @RequestParam final UUID id) {
+    public String edit(final Model model, @RequestParam(required = false) final UUID id) {
+        if (id == null) {
+            return "redirect:list";
+        }
         final Optional<Character> record = characterService.getCharacter(id);
 
         model.addAttribute("character", record.isPresent() ? record.get() : new Character());
@@ -86,20 +98,36 @@ public class CharacterController {
 
     @PostMapping(value={"/save", "/save/"})
     public String save(final Model model, @ModelAttribute final Character character, final BindingResult errors, @RequestParam(value = "image", required = false) final MultipartFile imageFile) {
+        Character toSave = character;
+        if (character.getId() != null) {
+            // Editing existing character, load it to preserve fields not in form
+            Optional<Character> existing = characterService.getCharacter(character.getId());
+            if (existing.isPresent()) {
+                toSave = existing.get();
+                // Update fields from form
+                toSave.setName(character.getName());
+                toSave.setEmail(character.getEmail());
+                toSave.setDescription(character.getDescription());
+                toSave.setVotes(character.getVotes());
+            }
+        }
         try {
             if (imageFile != null && !imageFile.isEmpty()) {
-                character.setImage(imageFile.getBytes());
+                toSave.setImage(imageFile.getBytes());
             }
         } catch (Exception e) {
             // Handle exception, perhaps add error to model
         }
         // Save the trading card entity to the database
-        characterService.saveCharacter(character);
+        characterService.saveCharacter(toSave);
         return "redirect:list";
     }
 
     @GetMapping(value={"/delete", "/delete/"})
-    public String delete(final Model model, @RequestParam final UUID id) {
+    public String delete(final Model model, @RequestParam(required = false) final UUID id) {
+        if (id == null) {
+            return "redirect:list";
+        }
         final Optional<Character> record = characterService.getCharacter(id);
 
         model.addAttribute("character", record.isPresent() ? record.get() : new Character());

@@ -50,8 +50,8 @@
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Character Image</label>
-                <img th:src="'data:image/png;base64,' + ${character.generateBase64Image()}" />
-                <p th:if="${character.image == null}">No image uploaded</p>
+                <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Character Image" style="max-width: 200px;" />
+                <p th:if="${base64Image == null}">No image uploaded</p>
             </div>
             <div class="mb-3">
                 <label for="votes" class="form-label">Character Votes</label>
