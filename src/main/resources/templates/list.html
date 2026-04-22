@@ -41,20 +41,21 @@
             <thead>
                 <tr>
                     <th style="width: 10%; text-align: center">#</th>
-                    <th style="width: 17.5%;">Name</th>
-                    <th style="width: 17.5%;">Rocket</th>
-                    <th style="width: 17.5%;">Country</th>
-                    <th style="width: 17.5%;">Year</th>
-                    <th style="width: 19%;"></th>
+                    <th style="width: 15%;">Name</th>
+                    <th style="width: 15%;">By</th>
+                    <th style="width: 20%;">Description</th>
+                    <th style="width: 20%;">Image</th>
+                    <th style="width: 10%;">Votes</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="character,iteration : ${characters}">
                     <td th:text="${(currentPageNumber * pageSize) + iteration.count}">1</td>
-                    <td th:text="${character.name}">Example Name</td>
-                    <td th:text="${character.rocket}">Example Rocket</td>
-                    <td th:text="${character.country}">Example Country</td>
-                    <td th:text="${character.year}">Example Year</td>
+                    <td th:text="${character.name}">Pizzaman</td>
+                    <td th:text="${character.email}">test@example.com</td>
+                    <td th:text="${character.description}">Pizza</td>
+                    <td th:text="${character.image != null ? 'Yes' : 'No'}">No</td>
+                    <td th:text="${character.votes}">0</td>
                     <td>
                         <a class="btn btn-info" th:href="'view?id=' + ${character.id}">View</a>
                         <a class="btn btn-warning" th:href="'edit?id=' + ${character.id}">Edit</a>

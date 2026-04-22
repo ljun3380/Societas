@@ -28,7 +28,7 @@
 
         <h2 class="navbar-brand">Add Character</h2>
 
-        <form th:action="@{/characters/save}" method="post" th:object="${characters}">
+        <form th:action="@{save}" method="post" enctype="multipart/form-data" th:object="${characters}">
 
             <div class="mb-3">
                 <label for="name" class="form-label">Character Name</label>
@@ -36,19 +36,23 @@
                     placeholder="John" />
             </div>
             <div class="mb-3">
-                <label for="rocket" class="form-label">Character Rocket</label>
-                <input type="text" class="form-control" id="rocket" name="rocket" th:value="*{rocket}"
-                    placeholder="Mike" />
+                <label for="email" class="form-label">Character Email</label>
+                <input type="email" class="form-control" id="email" name="email" th:value="*{email}"
+                    placeholder="john@example.com" />
             </div>
             <div class="mb-3">
-                <label for="country" class="form-label">Character Country</label>
-                <input type="text" class="form-control" id="country" name="country" th:value="*{country}"
-                    placeholder="Mars" />
+                <label for="description" class="form-label">Character Description</label>
+                <textarea class="form-control" id="description" name="description" th:value="*{description}"
+                    placeholder="Description of the character"></textarea>
             </div>
             <div class="mb-3">
-                <label for="year" class="form-label">Character Year</label>
-                <input type="number" step="1" class="form-control" id="year" name="year" th:value="*{year}"
-                    placeholder="2100" />
+                <label for="image" class="form-label">Character Image</label>
+                <input type="file" class="form-control" id="image" name="image" accept="image/*" />
+            </div>
+            <div class="mb-3">
+                <label for="votes" class="form-label">Character Votes</label>
+                <input type="number" step="1" class="form-control" id="votes" name="votes" th:value="*{votes}"
+                    placeholder="0" />
             </div>
             <!--
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->

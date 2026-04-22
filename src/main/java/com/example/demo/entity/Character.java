@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Type;
+
 import java.util.UUID;
 
 @Entity
@@ -15,8 +18,18 @@ public class Character {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "description")
     private String description;
+
+    @Column(name = "image")
+    @Type(type = "org.hibernate.type.BinaryType")
+    private byte[] image;
+
+    @Column(name = "votes")
+    private Integer votes;
 
     // Getters and setters
 
@@ -44,5 +57,32 @@ public class Character {
         this.description = description;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public Integer getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Integer votes) {
+        this.votes = votes;
+    }
+
+    public String generateBase64Image() {
+        return java.util.Base64.getEncoder().encodeToString(this.image);
+    }
 }
 

@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.Character;
 import com.example.demo.service.CharacterService;
 
 @Controller
-@RequestMapping("/characters")
+@RequestMapping("")
 public class CharacterController {
     static final int DEFAULT_PAGE_SIZE = 2;
 
@@ -31,7 +32,7 @@ public class CharacterController {
 
     @GetMapping(value={"/", ""})
     public String index() {
-        return "redirect:/characters/list";
+        return "redirect:list";
     }
 
     @GetMapping(value={"/list", "/list/"})
@@ -86,7 +87,14 @@ public class CharacterController {
     }
 
     @PostMapping(value={"/save", "/save/"})
-    public String save(final Model model, @ModelAttribute final Character character, final BindingResult errors) {
+    public String save(final Model model, @ModelAttribute final Character character, final BindingResult errors, @RequestParam(value = "image", required = false) final MultipartFile imageFile) {
+        try {
+            if (imageFile != null && !imageFile.isEmpty()) {
+                character.setImage(imageFile.getBytes());
+            }
+        } catch (Exception e) {
+            // Handle exception, perhaps add error to model
+        }
         // Save the trading card entity to the database
         characterService.saveCharacter(character);
         return "redirect:list";
