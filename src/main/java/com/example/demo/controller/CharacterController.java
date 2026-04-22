@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +24,6 @@ public class CharacterController {
 
     private final CharacterService characterService;
 
-    @Autowired
     public CharacterController(final CharacterService characterService) {
         this.characterService = characterService;
     }
@@ -72,7 +70,7 @@ public class CharacterController {
 
     @GetMapping(value={"/add", "/add/"})
     public String add(final Model model) {
-        model.addAttribute("characters", new Character());
+        model.addAttribute("character", new Character());
         return "add";
     }
 
