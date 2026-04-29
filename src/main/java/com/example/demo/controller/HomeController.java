@@ -71,6 +71,8 @@ public class HomeController {
         return "redirect:explorer";
     }
 
+    // sucess screen for when saving
+
     @GetMapping("/explorer")
     public String explore(final Model model, @RequestParam(value = "page", defaultValue = "0") final int pageNumber, 
             @RequestParam(value = "size", defaultValue = DEFAULT_PAGE_SIZE + "") final int pageSize) {
