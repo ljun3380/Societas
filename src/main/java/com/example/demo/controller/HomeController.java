@@ -181,4 +181,17 @@ public class HomeController {
         }
         return "redirect:characterview?id=" + id;
     }
+
+    @GetMapping(value={"/characteredit", "/characteredit/"})
+    public String characteredit(final Model model, @RequestParam(required = false) final UUID id) {
+        if (id == null) {
+            return "redirect:explorer";
+        }
+        final Optional<Character> record = characterService.getCharacter(id);
+
+        model.addAttribute("character", record.isPresent() ? record.get() : new Character());
+        model.addAttribute("id", id);
+
+        return "characteredit";
+    }
 }
