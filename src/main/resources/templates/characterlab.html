@@ -3,7 +3,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Characters</title>
+    <title>Character Lab</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="http://localhost:35729/livereload.js"></script>
     <style>
@@ -28,12 +28,12 @@
 
         <h2 class="navbar-brand">Add Character</h2>
 
-        <form th:action="@{save}" method="post" enctype="multipart/form-data" th:object="${character}">
+        <form th:action="@{charactersave}" method="post" enctype="multipart/form-data" th:object="${character}">
 
             <div class="mb-3">
                 <label for="name" class="form-label">Character Name</label>
-                <input type="text" class="form-control" id="name" name="name" th:value="*{name}"
-                    placeholder="John" />
+                <input type="text" class="form-control" id="name" name="name" th:value="*{name}" required
+                    placeholder="Character Name" />
             </div>
             <div class="mb-3">
                 <label for="author" class="form-label">Character Author</label>
@@ -42,7 +42,7 @@
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Character Description</label>
-                <textarea class="form-control" id="description" name="description" th:text="*{description}"
+                <textarea class="form-control" id="description" name="description" th:text="*{description}" required
                     placeholder="Description of the character"></textarea>
             </div>
             <div class="mb-3">
@@ -50,20 +50,14 @@
                 <input type="file" class="form-control" id="image" name="image" accept="image/*" />
             </div>
             <div class="mb-3">
-                <label for="votes" class="form-label">Character Votes</label>
-                <input type="number" step="1" class="form-control" id="votes" name="votes" th:value="*{votes}"
-                    placeholder="0" />
-            </div>
-            <div class="mb-3">
                 <label for="email" class="form-label">Character Email</label>
-                <input type="email" class="form-control" id="email" name="email" th:value="*{email}"
-                    placeholder="john@example.com" />
+                <input type="email" class="form-control" id="email" name="email" th:value="*{email}" required
+                    placeholder="example@example.com" />
             </div>
             <!--
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
-
             <input type="submit" class="btn btn-success" value="Add" />
-            <a href="list" class="btn btn-outline-secondary">Cancel</a>
+            <a href="explorer" class="btn btn-outline-secondary">Cancel</a>
         </form>
     </div>
 </body>
