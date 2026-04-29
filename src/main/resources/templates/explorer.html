@@ -34,6 +34,7 @@
 
 <body><nav th:replace="header :: header"></nav>
     <br />
+    <p>Beta! Don't click on edit or delete!</p>
     <br />
 
     <div class="container-sm">
@@ -58,7 +59,7 @@
                     <td th:text="${character.image != null ? 'Yes' : 'No'}">No</td>
                     <td th:text="${character.votes}">0</td>
                     <td>
-                        <a class="btn btn-info" th:href="'view?id=' + ${character.id}">View</a>
+                        <a class="btn btn-info" th:href="'characterview?id=' + ${character.id}">View</a>
                         <a class="btn btn-warning" th:href="'edit?id=' + ${character.id}">Edit</a>
                         <a class="btn btn-danger" th:href="'delete?id=' + ${character.id}">Delete</a>
                     </td>

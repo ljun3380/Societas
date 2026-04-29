@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Character View</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="http://localhost:35729/livereload.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+
+        body {
+            font-family: 'Rubik', sans-serif;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</head>
+
+<body><nav th:replace="header :: header"></nav>
+    <br />
+    <br />
+
+    <div class="container-sm">
+
+        <h2 class="navbar-brand">Character Details</h2>
+
+        <div th:if="${character.id == null}">
+            <div class="alert alert-danger" role="alert" th:text="'Character with id[' + ${id} + '] not found'">
+                Character not found
+            </div>
+            <a href="explorer" class="btn btn-outline-secondary">Go Back</a>
+        </div>
+
+        <div th:if="${character.id != null}" th:object="${character}">
+            <div th:if="${param.error != null}" class="alert alert-warning" role="alert">
+                You have already voted on this character!
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Character Name</label>
+                <input type="text" class="form-control" id="name" disabled="true" th:value="*{name}" />
+            </div>
+            <div class="mb-3">
+                <label for="author" class="form-label">Character Author</label>
+                <input type="text" class="form-control" id="author" disabled="true" th:value="*{author}" />
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Character Description</label>
+                <textarea class="form-control" id="description" disabled="true" th:text="*{description}"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Character Image</label>
+                <img th:if="${base64Image != null}" th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Character Image" style="max-width: 200px;" />
+                <p th:if="${base64Image == null}">No image uploaded</p>
+            </div>
+            <div class="mb-3">
+                <label for="votes" class="form-label">Character Votes</label>
+                <div class="d-flex align-items-center">
+                    <form th:action="@{upvote(id=${character.id})}" method="post" class="me-2">
+                        <button type="submit" class="btn" th:classappend="${userVote == 'up'} ? 'btn-warning' : 'btn-outline-success'">▲ Upvote</button>
+                    </form>
+                    <span class="badge bg-primary fs-5 me-2" th:text="*{votes}">0</span>
+                    <form th:action="@{downvote(id=${character.id})}" method="post">
+                        <button type="submit" class="btn" th:classappend="${userVote == 'down'} ? 'btn-warning' : 'btn-outline-danger'">▼ Downvote</button>
+                    </form>
+                </div>
+            </div>
+            <a href="explorer" class="btn btn-outline-secondary">Go Back</a>
+        </div>
+    </div>
+</body>
+
+</html>

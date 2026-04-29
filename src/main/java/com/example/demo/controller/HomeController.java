@@ -87,4 +87,98 @@ public class HomeController {
         model.addAttribute("pageSize", pageSize);
         return "explorer";
     }
+
+    @GetMapping("/characterview")
+    public String character(final Model model, @RequestParam(name = "id", required = false) final String id, final javax.servlet.http.HttpSession session) {
+        if (id == null || id.trim().isEmpty()) {
+            return "redirect:explorer";
+        }
+        try {
+            UUID uuid = UUID.fromString(id);
+            Optional<Character> record = characterService.getCharacter(uuid);
+
+            Character character = record.orElse(new Character());
+            if (character.getImage() != null) {
+                String base64Image = Base64.getEncoder().encodeToString(character.getImage());
+                model.addAttribute("base64Image", base64Image);
+            }
+            model.addAttribute("character", character);
+            model.addAttribute("requestedId", id);
+            
+            // Get user's current vote status for this character
+            @SuppressWarnings("unchecked")
+            java.util.Map<String, String> userVotes = (java.util.Map<String, String>) session.getAttribute("userVotes");
+            if (userVotes != null && userVotes.get(id) != null) {
+                model.addAttribute("userVote", userVotes.get(id));
+            }
+        } catch (IllegalArgumentException e) {
+            // This handles cases where the ID in the URL isn't a valid UUID
+            model.addAttribute("character", new Character());
+            model.addAttribute("error", "Invalid ID format");
+        }
+        return "characterview";
+
+    }
+
+    @PostMapping("/upvote")
+    public String upvote(@RequestParam final UUID id, final javax.servlet.http.HttpSession session) {
+        Optional<Character> record = characterService.getCharacter(id);
+        if (record.isPresent()) {
+            @SuppressWarnings("unchecked")
+            java.util.Map<String, String> userVotes = (java.util.Map<String, String>) session.getAttribute("userVotes");
+            if (userVotes == null) {
+                userVotes = new java.util.HashMap<>();
+            }
+            String currentVote = userVotes.get(id.toString());
+            Character character = record.get();
+            
+            if ("up".equals(currentVote)) {
+                // Already upvoted - remove vote (toggle off)
+                userVotes.remove(id.toString());
+                character.setVotes(character.getVotes() - 1);
+            } else if ("down".equals(currentVote)) {
+                // Currently downvoted - switch to upvote
+                userVotes.put(id.toString(), "up");
+                character.setVotes(character.getVotes() + 2);
+            } else {
+                // No previous vote - add upvote
+                userVotes.put(id.toString(), "up");
+                character.setVotes(character.getVotes() + 1);
+            }
+            session.setAttribute("userVotes", userVotes);
+            characterService.saveCharacter(character);
+        }
+        return "redirect:characterview?id=" + id;
+    }
+
+    @PostMapping("/downvote")
+    public String downvote(@RequestParam final UUID id, final javax.servlet.http.HttpSession session) {
+        Optional<Character> record = characterService.getCharacter(id);
+        if (record.isPresent()) {
+            @SuppressWarnings("unchecked")
+            java.util.Map<String, String> userVotes = (java.util.Map<String, String>) session.getAttribute("userVotes");
+            if (userVotes == null) {
+                userVotes = new java.util.HashMap<>();
+            }
+            String currentVote = userVotes.get(id.toString());
+            Character character = record.get();
+            
+            if ("down".equals(currentVote)) {
+                // Already downvoted - remove vote (toggle off)
+                userVotes.remove(id.toString());
+                character.setVotes(character.getVotes() + 1);
+            } else if ("up".equals(currentVote)) {
+                // Currently upvoted - switch to downvote
+                userVotes.put(id.toString(), "down");
+                character.setVotes(character.getVotes() - 2);
+            } else {
+                // No previous vote - add downvote
+                userVotes.put(id.toString(), "down");
+                character.setVotes(character.getVotes() - 1);
+            }
+            session.setAttribute("userVotes", userVotes);
+            characterService.saveCharacter(character);
+        }
+        return "redirect:characterview?id=" + id;
+    }
 }
