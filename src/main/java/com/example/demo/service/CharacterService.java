@@ -34,6 +34,10 @@ public class CharacterService {
     public void deleteCharacter(final UUID id) {
         repository.deleteById(id);
     }
+
+    public java.util.List<Character> getCharactersByEmail(final String email) {
+        return repository.findByEmail(email);
+    }
 }
 
 

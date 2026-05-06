@@ -7,6 +7,7 @@ import java.util.UUID;
 
 @Repository
 public interface CharacterRepository extends JpaRepository<Character, UUID> {
+    java.util.List<Character> findByEmail(String email);
 }
 
 
