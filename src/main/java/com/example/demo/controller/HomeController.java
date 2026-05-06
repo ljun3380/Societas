@@ -264,4 +264,41 @@ public class HomeController {
 
         return "characteredit";
     }
+
+    @GetMapping(value={"/characterdelete", "/characterdelete/"})
+    public String characterdelete(final Model model, @RequestParam(required = false) final UUID id, @RequestParam(required = false) final String confirmEmail) {
+        if (id == null) {
+            return "redirect:explorer";
+        }
+        if (confirmEmail == null || confirmEmail.trim().isEmpty() || !confirmEmail.equals(characterService.getCharacter(id).map(Character::getEmail).orElse(""))) {
+            return "redirect:verifyemail?next=characterdelete&id=" + id;
+        }
+        final Optional<Character> record = characterService.getCharacter(id);
+
+        model.addAttribute("character", record.isPresent() ? record.get() : new Character());
+        model.addAttribute("id", id);
+        model.addAttribute("confirmEmail", confirmEmail);
+
+        return "characterdelete";
+    }
+
+    @PostMapping(value={"/characterdelete", "/characterdelete/"})
+    public String characterdeletion(final Model model, @RequestParam final UUID id, @RequestParam final String confirmEmail) {
+        Optional<Character> record = characterService.getCharacter(id);
+        if (record.isPresent()) {
+            Character character = record.get();
+            if (character.getEmail() != null && character.getEmail().equals(confirmEmail)) {
+                characterService.deleteCharacter(id);
+                return "redirect:explorer";
+            } else {
+                // Email doesn't match, return to delete form with error
+                model.addAttribute("character", character);
+                model.addAttribute("id", id);
+                model.addAttribute("confirmEmail", confirmEmail);
+                model.addAttribute("error", "Email does not match the character's email.");
+                return "characterdelete";
+            }
+        }
+        return "redirect:explorer";
+    }
 }
