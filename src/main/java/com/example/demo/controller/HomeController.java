@@ -246,10 +246,11 @@ public class HomeController {
 
     @GetMapping("usercreations")
     public String usercreations(Model model, @RequestParam(required = false) final String confirmEmail) {
-        if (confirmEmail != null && !confirmEmail.trim().isEmpty()) {
-            java.util.List<Character> characters = characterService.getCharactersByEmail(confirmEmail);
-            model.addAttribute("characters", characters);
+        if (confirmEmail == null || confirmEmail.trim().isEmpty()) {
+            return "redirect:verifyemail?next=usercreations";
         }
+        java.util.List<Character> characters = characterService.getCharactersByEmail(confirmEmail);
+        model.addAttribute("characters", characters);
         return "usercreations";
     }
     
