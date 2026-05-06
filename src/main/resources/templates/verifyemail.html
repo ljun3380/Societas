@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Success</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+</head>
+<body>
+    <nav th:replace="header :: header"></nav>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card shadow-sm text-center">
+                    <div class="card-body">
+                        <h1 class="card-title display-5 mb-3">Verify Email</h1>
+                        <form th:action="@{/verifyemail}" method="post">
+                            <input type="hidden" name="next" th:value="${next}" />
+                            <input type="hidden" name="id" th:value="${id}" />
+                            <div class="mb-3">
+                                <label for="confirmEmail" class="form-label">Please verify your email address to continue.</label>
+                                <input type="email" class="form-control" id="confirmEmail" name="confirmEmail" placeholder="Enter your email address" required />
+                                <div th:if="${error}" class="text-danger" th:text="${error}"></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">Verify Email</button>
+                        </form>
+                        <a class="btn btn-secondary btn-lg mt-2" th:href="@{/explorer}">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

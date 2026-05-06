@@ -38,6 +38,7 @@
         <form th:action="@{charactersave}" method="post" enctype="multipart/form-data" th:object="${character}" th:if="${character.id != null}">
 
             <input type="hidden" id="id" name="id" th:value="*{id}" />
+            <input type="hidden" name="confirmEmail" th:value="${confirmEmail}" />
 
             <div class="mb-3">
                 <label for="name" class="form-label">Character Name</label>

@@ -60,8 +60,8 @@
                     <td th:text="${character.votes}">0</td>
                     <td>
                         <a class="btn btn-info" th:href="'characterview?id=' + ${character.id}">View</a>
-                        <a class="btn btn-warning" th:href="'edit?id=' + ${character.id}">Edit</a>
-                        <a class="btn btn-danger" th:href="'delete?id=' + ${character.id}">Delete</a>
+                        <a class="btn btn-warning" th:href="'characteredit?id=' + ${character.id}">Edit</a>
+                        <a class="btn btn-danger" th:href="'characterdelete?id=' + ${character.id}">Delete</a>
                     </td>
                 </tr>
             </tbody>

@@ -41,13 +41,21 @@ public class HomeController {
     }
 
     @PostMapping(value={"/charactersave", "/charactersave/"})
-    public String charactersave(final Model model, @ModelAttribute final Character character, final BindingResult errors, @RequestParam(value = "image", required = false) final MultipartFile imageFile) {
+    public String charactersave(final Model model, @ModelAttribute final Character character, final BindingResult errors, @RequestParam(value = "image", required = false) final MultipartFile imageFile, @RequestParam(required = false) final String confirmEmail) {
         Character toSave = character;
         if (character.getId() != null) {
             // Editing existing character, load it to preserve fields not in form
             Optional<Character> existing = characterService.getCharacter(character.getId());
             if (existing.isPresent()) {
-                toSave = existing.get();
+                Character existingChar = existing.get();
+                // Check if confirmEmail matches the existing email
+                if (confirmEmail != null && !confirmEmail.isEmpty() && (existingChar.getEmail() == null || !existingChar.getEmail().equals(confirmEmail))) {
+                    // Email doesn't match, return to edit form with error
+                    model.addAttribute("character", existingChar);
+                    model.addAttribute("error", "Confirmation email does not match the character's current email.");
+                    return "characteredit";
+                }
+                toSave = existingChar;
                 // Update fields from form
                 toSave.setName(character.getName());
                 toSave.setEmail(character.getEmail());
@@ -182,15 +190,77 @@ public class HomeController {
         return "redirect:characterview?id=" + id;
     }
 
+    @GetMapping("verifyemail")
+    public String verifyemail(Model model, @RequestParam(required = false) String next, @RequestParam(required = false) String id) {
+        model.addAttribute("next", next);
+        model.addAttribute("id", id);
+        return "verifyemail";
+    }
+
+    @PostMapping("verifyemail")
+    public String verifyEmailPost(@RequestParam String confirmEmail, @RequestParam String next, @RequestParam(required = false) String id, Model model) {
+        if (next.equals("characteredit")) {
+            if (id != null) {
+                try {
+                    UUID uuid = UUID.fromString(id);
+                    Optional<Character> character = characterService.getCharacter(uuid);
+                    if (character.isPresent() && character.get().getEmail() != null && character.get().getEmail().equals(confirmEmail)) {
+                        return "redirect:characteredit?id=" + id + "&confirmEmail=" + confirmEmail;
+                    }
+                } catch (IllegalArgumentException e) {
+                    // invalid id
+                }
+            }
+            model.addAttribute("error", "Invalid email or character not found.");
+            model.addAttribute("next", next);
+            model.addAttribute("id", id);
+            return "verifyemail";
+        } else if (next.equals("characterdelete")) {
+            if (id != null) {
+                try {
+                    UUID uuid = UUID.fromString(id);
+                    Optional<Character> character = characterService.getCharacter(uuid);
+                    if (character.isPresent() && character.get().getEmail() != null && character.get().getEmail().equals(confirmEmail)) {
+                        return "redirect:characterdelete?id=" + id + "&confirmEmail=" + confirmEmail;
+                    }
+                } catch (IllegalArgumentException e) {
+                    // invalid id
+                }
+            }
+            model.addAttribute("error", "Invalid email or character not found.");
+            model.addAttribute("next", next);
+            model.addAttribute("id", id);
+            return "verifyemail";
+        } else if (next.equals("usercreations")) {
+            // For usercreations, just redirect with email
+            return "redirect:usercreations?confirmEmail=" + confirmEmail;
+        }
+        return "redirect:explorer";
+    }
+
+    @GetMapping("usercreations")
+    public String usercreations(Model model, @RequestParam(required = false) final String confirmEmail) {
+        if (confirmEmail != null && !confirmEmail.trim().isEmpty()) {
+            java.util.List<Character> characters = characterService.getCharactersByEmail(confirmEmail);
+            model.addAttribute("characters", characters);
+        }
+        return "usercreations";
+    }
+    
+
     @GetMapping(value={"/characteredit", "/characteredit/"})
-    public String characteredit(final Model model, @RequestParam(required = false) final UUID id) {
+    public String characteredit(final Model model, @RequestParam(required = false) final UUID id, @RequestParam(required = false) final String confirmEmail) {
         if (id == null) {
             return "redirect:explorer";
+        }
+        if (confirmEmail == null || confirmEmail.trim().isEmpty() || !confirmEmail.equals(characterService.getCharacter(id).map(Character::getEmail).orElse(""))) {
+            return "redirect:verifyemail?next=characteredit&id=" + id;
         }
         final Optional<Character> record = characterService.getCharacter(id);
 
         model.addAttribute("character", record.isPresent() ? record.get() : new Character());
         model.addAttribute("id", id);
+        model.addAttribute("confirmEmail", confirmEmail);
 
         return "characteredit";
     }
