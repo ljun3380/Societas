@@ -68,10 +68,14 @@ public class HomeController {
         }
         // Save the trading card entity to the database
         characterService.saveCharacter(toSave);
-        return "redirect:explorer";
+        return "redirect:success";
     }
 
-    // sucess screen for when saving
+    @GetMapping("/success")
+    public String success(Model model) {
+        return "success";
+    }
+    
 
     @GetMapping("/explorer")
     public String explore(final Model model, @RequestParam(value = "page", defaultValue = "0") final int pageNumber, 
