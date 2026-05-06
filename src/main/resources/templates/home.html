@@ -7,10 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Fixed: Ensure colors match the brand logo exactly */
-        :root {
-            --we-epic-red: #E30613;
-            --we-epic-blue: #0054A6;
-        }
+        
         body { background-color: #050505; color: #ffffff; }
         .hero-glow {
             background: radial-gradient(circle at center, rgba(227, 6, 19, 0.15) 0%, rgba(5, 5, 5, 1) 70%);
@@ -20,9 +17,7 @@
 <body>
 
     <nav class="flex items-center justify-between px-6 py-4 bg-black/80 backdrop-blur-md sticky top-0 z-50 border-b border-white/10">
-        <div class="flex items-center">
-            <img th:src="@{/images/WeEpicLogo.png}" alt="WeEpic" class="h-10 md:h-14">
-        </div>
+        
         
         <div class="hidden md:flex space-x-10 text-sm font-bold tracking-widest">
             <a th:href="@{/characterlab}" class="hover:text-red-500 transition">Character Lab</a>
@@ -35,7 +30,7 @@
 
     <section class="hero-glow h-[70vh] flex flex-col items-center justify-center text-center px-4">
         <h1 class="text-7xl md:text-9xl font-black italic mb-4 tracking-tighter uppercase">
-            We<span class="text-red-600">Societas</span>
+        <span class="text-red-600">Societas</span>
         </h1>
         <p class="text-slate-400 text-lg md:text-xl max-w-xl">
             Pushing the limits of interactive entertainment through epic storytelling and competitive play.
@@ -63,4 +58,4 @@
     </main>
 
 </body>
-</html>
+</html>>
