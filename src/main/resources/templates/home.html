@@ -4,45 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Societas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Fixed: Ensure colors match the brand logo exactly */
-        
-        body { background-color: #050505; color: #ffffff; }
-        .hero-glow {
-            background: radial-gradient(circle at center, rgba(227, 6, 19, 0.15) 0%, rgba(5, 5, 5, 1) 70%);
-        }
-    </style>
+    <link rel="stylesheet" href="/css/styles.css"/>
+    
 </head>
 <body>
 
-    <nav class="flex items-center justify-between px-6 py-4 bg-black/80 backdrop-blur-md sticky top-0 z-50 border-b border-white/10">
+   <nav class="flex items-center justify-between px-6 py-4 bg-black/80 backdrop-blur-md sticky top-0 z-50 border-b border-white/10">
         
         
         <div class="hidden md:flex space-x-10 text-sm font-bold tracking-widest">
-            <a th:href="@{/characterlab}" class="hover:text-red-500 transition">Character Lab</a>
+          <a th:href="@{/characterlab}"> <p> Character Lab </p> </a> 
+            <a th:href="@{/verifyemail}"> <p> My Creations </p></a>
+        
         </div>
 
-        <button class="bg-gradient-to-r from-red-600 to-blue-600 px-6 py-2 rounded text-sm font-black italic">
-            PLAY NOW
-        </button>
+        
     </nav>
 
     <section class="hero-glow h-[70vh] flex flex-col items-center justify-center text-center px-4">
         <h1 class="text-7xl md:text-9xl font-black italic mb-4 tracking-tighter uppercase">
         <span class="text-red-600">Societas</span>
         </h1>
-        <p class="text-slate-400 text-lg md:text-xl max-w-xl">
-            Pushing the limits of interactive entertainment through epic storytelling and competitive play.
-        </p>
+        <h3>
+            Pushing the limits of interactive entertainment through epic storytelling and competitive play!
+        </h3>
     </section>
 
+    <br>
+    <br>
+    <br>
+    <br>
+
     <main class="py-16 px-6 max-w-7xl mx-auto">
-        <h2 class="text-2xl font-bold mb-8 italic uppercase tracking-tighter">Current Projects</h2>
+        <h1 class="text-2xl font-bold mb-8 italic uppercase tracking-tighter">Current Projects</h1>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div th:if="${games == null}" class="col-span-full text-center py-10 border border-dashed border-white/20">
-                <p class="text-slate-500 italic">No projects currently active. Check back soon!</p>
+                <h3 class="text-slate-500 italic">No projects currently active. Check back soon!</h3>
             </div>
 
             <div th:each="game : ${games}" class="group bg-zinc-900 border border-white/5 hover:border-blue-500/50 transition">
