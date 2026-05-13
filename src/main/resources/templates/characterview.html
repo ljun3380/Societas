@@ -68,7 +68,11 @@
                     </form>
                 </div>
             </div>
-            <a href="explorer" class="btn btn-outline-secondary">Go Back</a>
+            <div class="mb-3 d-flex gap-2">
+                <a href="explorer" class="btn btn-outline-secondary">Go Back</a>
+                <a th:href="@{/characteredit(id=${character.id})}" class="btn btn-warning">Edit</a>
+                <a th:href="@{/characterdelete(id=${character.id})}" class="btn btn-danger">Delete</a>
+            </div>
         </div>
     </div>
 </body>

@@ -68,7 +68,7 @@
             <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
 
             <input type="submit" class="btn btn-success" value="Update" />
-            <a href="explorer" class="btn btn-outline-secondary">Cancel</a>
+            <a th:href="@{/characterview(id=${character.id})}" class="btn btn-outline-secondary">Cancel</a>
         </form>
     </div>
 </body>

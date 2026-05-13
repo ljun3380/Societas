@@ -44,9 +44,9 @@
                     <th style="width: 15%;">Name</th>
                     <th style="width: 15%;">Author</th>
                     <th style="width: 20%;">Description</th>
-                    <th style="width: 10%;">Image</th>
+                    <th style="width: 20%;">Image</th>
                     <th style="width: 10%;">Votes</th>
-                    <th style="width: 15%;"></th>
+                    <th style="width: 5%;"></th>
                 </tr>
             </thead>
             <tbody>
@@ -59,8 +59,6 @@
                     <td th:text="${character.votes}">0</td>
                     <td>
                         <a class="btn btn-info" th:href="'characterview?id=' + ${character.id}">View</a>
-                        <a class="btn btn-warning" th:href="'characteredit?id=' + ${character.id}">Edit</a>
-                        <a class="btn btn-danger" th:href="'characterdelete?id=' + ${character.id}">Delete</a>
                     </td>
                 </tr>
             </tbody>

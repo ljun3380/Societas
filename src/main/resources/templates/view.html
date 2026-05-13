@@ -61,7 +61,11 @@
                 <label for="email" class="form-label">Character Email</label>
                 <input type="email" class="form-control" id="email" disabled="true" th:value="*{email}" />
             </div>
-            <a href="list" class="btn btn-outline-secondary">Go Back</a>
+            <div class="mb-3 d-flex gap-2">
+                <a href="list" class="btn btn-outline-secondary">Go Back</a>
+                <a th:href="@{/edit(id=${character.id})}" class="btn btn-warning">Edit</a>
+                <a th:href="@{/delete(id=${character.id})}" class="btn btn-danger">Delete</a>
+            </div>
         </div>
     </div>
 </body>
