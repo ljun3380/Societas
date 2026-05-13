@@ -1,29 +1,41 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: lightgrey;
+  background-color: black;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 h1 {
-  color: #833345;
+  color: red;
   font-size: 75px;
   text-align: center;
   line-height: 1.5;
   font-weight: bold;
-  text-decoration: dotted;
-  text-decoration-color: blue;
-  text-decoration-thickness: 10px;
-  text-decoration-line: underline;
+ 
 
-  border: 1px solid black;
-
-  z-index: 1;
-  visibility: visible;
-  overflow: auto;
-  opacity: 0.5;
-  cursor: crosshair;
+  
 }
+
+h2 {
+  color: red;
+  text-align: center;
+}
+
+h3 {
+  color: white;
+  text-align: center;
+}
+
+p {
+  
+  color: white;
+  background-color: red;
+  text-align: center;
+  padding: 14px 25px;
+  display: inline-block;
+}
+
+
 
 .text {
   font-size: 23px;
